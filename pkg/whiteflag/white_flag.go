@@ -150,7 +150,7 @@ func ProcessStack(stack *list.List, wfConf *Confirmation, visited map[trinary.Ha
 			return fmt.Errorf("%w: transaction %s", ErrMissingTransaction, headTxTrunkHash)
 		}
 		defer cachedTrunkTx.Release()
-		trunkConfirmed, _ = cachedTrunkTx.GetMetadata().GetConfirmed()
+		trunkConfirmed = cachedTrunkTx.GetMetadata().IsConfirmed()
 
 		// auto. set branch trunk to branch data,
 		// gets overwritten in case trunk != branch
@@ -165,7 +165,7 @@ func ProcessStack(stack *list.List, wfConf *Confirmation, visited map[trinary.Ha
 				return fmt.Errorf("%w: transaction %s", ErrMissingTransaction, headTxBranchHash)
 			}
 			defer cachedBranchTx.Release()
-			branchConfirmed, _ = cachedBranchTx.GetMetadata().GetConfirmed()
+			branchConfirmed = cachedBranchTx.GetMetadata().IsConfirmed()
 		}
 	}
 
